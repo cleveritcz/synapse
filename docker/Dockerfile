@@ -67,6 +67,8 @@ RUN apk add --no-cache --virtual .runtime_deps \
         su-exec
 
 RUN mkdir -p /matrix-media-store-parent/media-store /matrix-run/uploads 
+RUN touch /matrix-run/home.log
+RUN chmod 775 /matrix-run/home.log
 
 COPY --from=builder install /usr/local
 COPY ./synapse/docker/start.py /start.py
