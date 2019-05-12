@@ -66,10 +66,11 @@ RUN apk add --no-cache --virtual .runtime_deps \
         zlib \
         su-exec
 
+RUN mkdir /matrix-media-store-parent
+
 COPY --from=builder install /usr/local
 COPY ./synapse/docker/start.py /start.py
 COPY ./synapse/docker/conf /conf
-
 COPY matrix-synapse-rest-password-provider/rest_auth_provider.py /usr/local/lib/python2.7/site-packages/rest_auth_provider.py
 
 VOLUME ["/data"]
