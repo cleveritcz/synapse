@@ -44,9 +44,9 @@ RUN pip install --prefix="/install" --no-warn-script-location \
 
 # now install synapse and all of the python deps to /install.
 
-COPY synapse /synapse/synapse/
-COPY scripts /synapse/scripts/
-COPY MANIFEST.in README.rst setup.py synctl /synapse/
+COPY synapse/synapse /synapse/synapse/
+COPY synapse/scripts /synapse/scripts/
+COPY synapse/MANIFEST.in synapse/README.rst synapse/setup.py synapse/synctl synapse/
 
 RUN pip install --prefix="/install" --no-warn-script-location \
         /synapse[all]
@@ -66,9 +66,11 @@ RUN apk add --no-cache --virtual .runtime_deps \
         zlib \
         su-exec
 
-COPY --from=builder /install /usr/local
-COPY ./docker/start.py /start.py
-COPY ./docker/conf /conf
+COPY --from=builder install /usr/local
+COPY ./synapse/docker/start.py /start.py
+COPY ./synapse/docker/conf /conf
+
+COPY matrix-synapse-rest-password-provider/rest_auth_provider.py /usr/local/lib/python2.7/site-packages/rest_auth_provider.py
 
 VOLUME ["/data"]
 
