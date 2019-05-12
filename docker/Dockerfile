@@ -66,7 +66,7 @@ RUN apk add --no-cache --virtual .runtime_deps \
         zlib \
         su-exec
 
-RUN mkdir -p /matrix-media-store-parent/media-store
+RUN mkdir -p /matrix-media-store-parent/media-store /matrix-run/uploads
 
 COPY --from=builder install /usr/local
 COPY ./synapse/docker/start.py /start.py
